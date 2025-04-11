@@ -5,7 +5,7 @@ function App() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch('https://your-render-backend.onrender.com/api/wallet-summary')
+    fetch('https://your-render-backend.onrender.com/api/wallet-summary')git commit -m "Initial commit for frontend"
       .then(res => res.json())
       .then(setData)
       .catch(err => console.error(err));
