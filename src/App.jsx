@@ -5,7 +5,7 @@ function App() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch('https://backend-7htc.onrender.com')git commit -m "Initial commit for frontend"
+    fetch('https://backend-7htc.onrender.com')
       .then(res => res.json())
       .then(setData)
       .catch(err => console.error(err));
