@@ -3,13 +3,15 @@ import './App.css';
 
 function App() {
   const [data, setData] = useState(null);
-
-  useEffect(() => {
-    fetch('https://backend-7htc.onrender.com/api/wallet-summary')
-      .then(res => res.json())
-      .then(setData)
-      .catch(err => console.error(err));
-  }, []);
+  
+useEffect(() => {
+  fetch('https://backend-7htc.onrender.com/api/wallet-summary')
+    .then(res => res.json())
+    .then(setData)
+    .catch(err => {
+      console.error("Error fetching wallet summary:", err);
+    });
+}, []);
 
   if (!data) return <div>Loading...</div>;
 
