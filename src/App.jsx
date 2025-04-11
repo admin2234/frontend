@@ -1,33 +1,32 @@
 import { useEffect, useState } from 'react';
-import './App.css';
 
 function App() {
   const [data, setData] = useState(null);
-  
-useEffect(() => {
-  fetch('https://backend-7htc.onrender.com/api/wallet-summary')
-    .then(res => res.json())
-    .then(setData)
-    .catch(err => {
-      console.error("Error fetching wallet summary:", err);
-    });
-}, []);
 
-  if (!data) return <div>Loading...</div>;
+  useEffect(() => {
+    fetch('https://backend-7htc.onrender.com/api/wallet-summary')
+      .then((res) => res.json())
+      .then(setData)
+      .catch((err) => {
+        console.error('Error fetching wallet summary:', err);
+      });
+  }, []);
 
-return (
-  <div>
-    {data ? (
-      <div>
-        <p>Market Value: ${data.marketValue}</p>
-        <p>Profit: ${data.profit}</p>
-        <p>Trading Fees: ${data.tradingFees}</p>
-        <p>Net Principal: ${data.netPrincipal}</p>
-      </div>
-    ) : (
-      <p>Loading...</p>
-    )}
-  </div>
-);
+  return (
+    <div style={{ fontFamily: 'sans-serif', textAlign: 'center', marginTop: '50px' }}>
+      <h1>Exit Babylon Dashboard</h1>
+      {data ? (
+        <div>
+          <p><strong>Market Value:</strong> ${data.marketValue}</p>
+          <p><strong>Profit:</strong> ${data.profit}</p>
+          <p><strong>Trading Fees:</strong> ${data.tradingFees}</p>
+          <p><strong>Net Principal:</strong> ${data.netPrincipal}</p>
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
+  );
+}
 
-export default App
+export default App;
