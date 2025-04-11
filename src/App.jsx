@@ -15,15 +15,19 @@ useEffect(() => {
 
   if (!data) return <div>Loading...</div>;
 
-  return (
-    <div className="dashboard">
-      <h1>dYdX v4 Wallet Dashboard</h1>
-      <p><strong>Market Value:</strong> ${data.marketValue}</p>
-      <p><strong>Profit:</strong> ${data.profit}</p>
-      <p><strong>Trading Fees:</strong> ${data.tradingFees}</p>
-      <p><strong>Net Principal:</strong> ${data.netPrincipal}</p>
-    </div>
-  );
-}
+return (
+  <div>
+    {data ? (
+      <div>
+        <p>Market Value: ${data.marketValue}</p>
+        <p>Profit: ${data.profit}</p>
+        <p>Trading Fees: ${data.tradingFees}</p>
+        <p>Net Principal: ${data.netPrincipal}</p>
+      </div>
+    ) : (
+      <p>Loading...</p>
+    )}
+  </div>
+);
 
 export default App
