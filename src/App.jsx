@@ -1,32 +1,60 @@
-import { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
-function App() {
-  const [data, setData] = useState(null);
+const App = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [error, setError] = useState('');
 
-  useEffect(() => {
-    fetch('https://backend-7htc.onrender.com/api/wallet-summary')
-      .then((res) => res.json())
-      .then(setData)
-      .catch((err) => {
-        console.error('Error fetching wallet summary:', err);
-      });
-  }, []);
+  const handleLogin = (e) => {
+    e.preventDefault();
+    
+    // Simple hardcoded auth for now
+    if (email === 'admin@example.com' && password === 'password123') {
+      setIsAuthenticated(true);
+      setError('');
+    } else {
+      setError('Invalid email or password');
+    }
+  };
 
-  return (
-    <div style={{ fontFamily: 'sans-serif', textAlign: 'center', marginTop: '50px' }}>
-      <h1>Exit Babylon Dashboard</h1>
-      {data ? (
-        <div>
-          <p><strong>Market Value:</strong> ${data.marketValue}</p>
-          <p><strong>Profit:</strong> ${data.profit}</p>
-          <p><strong>Trading Fees:</strong> ${data.tradingFees}</p>
-          <p><strong>Net Principal:</strong> ${data.netPrincipal}</p>
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
+  const renderLoginForm = () => (
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <form onSubmit={handleLogin} className="bg-white p-6 rounded shadow-md w-96">
+        <h2 className="text-xl font-bold mb-4">Login to Dashboard</h2>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full mb-3 px-4 py-2 border rounded"
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full mb-3 px-4 py-2 border rounded"
+          required
+        />
+        {error && <div className="text-red-500 text-sm mb-3">{error}</div>}
+        <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
+          Login
+        </button>
+      </form>
     </div>
   );
-}
+
+  const renderDashboard = () => (
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">📊 Exit Babylon Dashboard</h1>
+      <p>Welcome, {email}!</p>
+      {/* TODO: Add dashboard data here */}
+    </div>
+  );
+
+  return isAuthenticated ? renderDashboard() : renderLoginForm();
+};
 
 export default App;
